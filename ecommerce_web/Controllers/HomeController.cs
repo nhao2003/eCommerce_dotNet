@@ -1,4 +1,5 @@
 using ecommerce_web.Models;
+using ecommerce_web.Models.Authentication;
 using ecommerce_web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace ecommerce_web.Controllers
             _logger = logger;
         }
 
+        [Authentication]
         public IActionResult Index(int? page)
         {
             int pageSize = 8;
@@ -25,7 +27,7 @@ namespace ecommerce_web.Controllers
             PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(lstsanpham, pageNumber, pageSize);
             return View(lst);
         }
-
+        [Authentication]
         public IActionResult SanPhamTheoLoai(String maloai, int? page)
         {
             int pageSize = 8;
@@ -37,7 +39,7 @@ namespace ecommerce_web.Controllers
             ViewBag.maloai = maloai;
             return View(lst);
         }
-
+        [Authentication]
         public IActionResult ChiTietSanPham(string maSp)
         {
             var sanPham = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == maSp);
@@ -45,7 +47,7 @@ namespace ecommerce_web.Controllers
             ViewBag.anhSanPham = anhSanPham;
             return View(sanPham);
         }
-
+        [Authentication]
         public IActionResult ProductDetail(string maSp)
         {
             var sanPham = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == maSp);
